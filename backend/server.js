@@ -1,6 +1,6 @@
-
 import dns from 'dns';
 dns.setServers(['8.8.8.8', '8.8.4.4']);
+
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -17,6 +17,9 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected Successfully'))
   .catch((err) => console.error('MongoDB Connection Error:', err));
 
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('MongoDB Connected Successfully'))
+  .catch((err) => console.error('MongoDB Connection Error:', err));
 const sendResponse = (res, statusCode, success, message, data = null) => {
   return res.status(statusCode).json({ success, message, data });
 };
@@ -101,7 +104,6 @@ app.get('/api/movies/watch-next', async (req, res) => {
     return sendResponse(res, 500, false, error.message);
   }
 });
-
 // 4. STATISTICS DASHBOARD
 app.get('/api/movies/stats', async (req, res) => {
   try {
